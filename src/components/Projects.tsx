@@ -22,7 +22,7 @@ export default function Projects() {
   const projects: Project[] = [
     {
       title: 'Kemet',
-      image: '/projects/Kemet.png',
+      image: '/projects/kemet.png',
       github: 'https://github.com/AhmedmMhmoud2001/kemet-frontend.git',
       demo: 'https://kemet-mechanical-services.vercel.app',
       category: 'fullstack',
