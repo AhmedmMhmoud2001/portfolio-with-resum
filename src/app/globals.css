@@ -6,6 +6,7 @@
   
 }
 
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -20,7 +21,10 @@
     
   }
 }
-
+/* Smooth scroll if not already enabled */
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   background: var(--background);
@@ -38,10 +42,76 @@ body {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
-/* Smooth scroll if not already enabled */
-html {
-  scroll-behavior: smooth;
+
+
+
+
+
+.custom-shape-container {
+  height: 25rem;
+  width: 25rem;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  background: linear-gradient(to bottom right, #2e1065, #9333ea);
+  padding: 0.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
 }
+
+.custom-shape-inner {
+  position: relative;
+  height: 22rem;
+  width: 22rem;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  overflow: hidden;
+}
+
+.custom-shape-img {
+  border-radius: inherit;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 📱 موبايل */
+@media (max-width: 640px) {
+  .custom-shape-container {
+    height: 15rem;
+    width: 15rem;
+  }
+  .custom-shape-inner {
+    height: 12rem;
+    width: 12rem;
+  }
+}
+
+/* 📲 تابلت */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .custom-shape-container {
+    height: 22rem;
+    width: 22rem;
+  }
+  .custom-shape-inner {
+    height: 18rem;
+    width: 18rem;
+  }
+}
+
+/* 💻 ديسكتوب */
+@media (min-width: 1025px) {
+  .custom-shape-container {
+    height: 25rem;
+    width: 25rem;
+  }
+  .custom-shape-inner {
+    height: 22rem;
+    width: 22rem;
+  }
+}
+
+
 
 
 

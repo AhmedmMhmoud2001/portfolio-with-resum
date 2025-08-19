@@ -54,7 +54,7 @@ export default function Services() {
         viewport={{ once: true }}
         className="w-full max-w-6xl text-center"
       >
-        <h2 className="text-3xl md:text-4xl font-bold text-purple-800 mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold text-white mb-12">
           What I Do
         </h2>
 
