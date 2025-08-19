@@ -1,8 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import {Download } from 'lucide-react';
-import Image from 'next/image';
+
 export default function About() {
   
 
@@ -79,11 +78,10 @@ export default function About() {
                  🧠 Always learning. 💻 Always building. 🔥 Always improving.
                 </p>
             <a
-          href="/Resume.pdf"
-          download
-          className="inline-flex items-center gap-2 bg-purple-900 text-white px-4 py-1.5 rounded hover:bg-purple-900 transition"
+          href="#contact"
+          className="inline-flex items-center gap-2 bg-purple-900 text-white px-4 py-1.5 rounded hover:bg-purple-900 transition-transform duration-200 hover:scale-105"
         > 
-        <Download size={18} /> Resume
+        Contact Me
         </a>
           </div>
 
@@ -97,16 +95,8 @@ export default function About() {
             className="rounded-2xl object-cover w-full h-full"
           />
         </div> */}
-        <div className="w-full max-w-[350px] aspect-[7/8] rounded-2xl bg-gradient-to-br from-purple-950 to-purple-500 p-1 shadow-xl">
-  <div className="relative w-full h-full rounded-2xl overflow-hidden">
-    <Image
-      src="/profile.jpg"
-      alt="Ahmed Mahmoud"
-      fill
-      className="object-cover rounded-2xl"
-    />
-  </div>
-</div>
+
+
 
         </div>
 
@@ -119,7 +109,7 @@ export default function About() {
             {skills.map((tech, index) => (
               <span
                 key={index}
-                className="bg-gray-50 text-gray-800 px-4 py-2 rounded-full text-sm font-medium shadow"
+                className="bg-gray-50 text-gray-800 px-4 py-2 rounded-full text-sm font-medium shadow hover:scale-103 hover:bg-gray-200 hover:translate-y-[-2px] transition-transform duration-200"
               >
                 {tech}
               </span>

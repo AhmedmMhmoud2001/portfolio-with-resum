@@ -3,87 +3,106 @@
 import { motion } from 'framer-motion';
 import { ExternalLink, Github } from 'lucide-react';
 import Image from 'next/image';
+import { useState } from 'react';
+
+// تعريف نوع خاص للتصنيفات
+type Category = 'all' | 'frontend' | 'backend' | 'fullstack';
+
+interface Project {
+  title: string;
+  image: string;
+  github: string;
+  demo: string;
+  category: Category;
+}
 
 export default function Projects() {
-  const projects = [
+  const [filter, setFilter] = useState<Category>('all');
+
+  const projects: Project[] = [
     {
-      title: 'Kemet Backend',
+      title: 'Kemet',
       image: '/projects/Kemet.png',
-      github: 'https://github.com/ahmed/kemet-backend',
-      demo: 'https://kemet-backend.vercel.app',
+      github: 'https://github.com/AhmedmMhmoud2001/kemet-frontend.git',
+      demo: 'https://kemet-mechanical-services.vercel.app',
+      category: 'fullstack',
     },
     {
-      title: 'Personal Portfolio',
-      image: '/projects/dayma.png',
-      description: 'My personal website built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion.',
-      github: 'https://github.com/ahmed/portfolio',
-      demo: '/',
-    },
-    {
-      title: 'Personal Portfolio',
-      image: '/projects/food-eat.png',
-      description: 'My personal website built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion.',
-      github: 'https://github.com/ahmed/portfolio',
-      demo: '/',
-    },
-    {
-      title: 'Personal Portfolio',
-      image: '/projects/fresh-fruit.png',
-      description: 'My personal website built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion.',
-      github: 'https://github.com/ahmed/portfolio',
-      demo: '/',
-    },
-    {
-      title: 'Personal Portfolio',
-      image: '/projects/kaspes.png',
-      description: 'My personal website built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion.',
-      github: 'https://github.com/ahmed/portfolio',
-      demo: '/',
-    },
-    {
-      title: 'Personal Portfolio',
+      title: 'shopsy-hazel',
       image: '/projects/shopsy-hazel.png',
-      description: 'My personal website built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion.',
-      github: 'https://github.com/ahmed/portfolio',
-      demo: '/',
-    },
-    {
-      title: 'Personal Portfolio',
-      image: '/projects/type-n-speak.png',
-      description: 'My personal website built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion.',
-      github: 'https://github.com/ahmed/portfolio',
-      demo: '/',
-    },
-    {
-      title: 'watched',
-      image: '/projects/watchn.png',
-      description: 'My personal website built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion.',
-      github: 'https://github.com/AhmedmMhmoud2001/E-Commerce',
-      demo: 'https://watched-delta.vercel.app/',
-    },
-    {
-      title: 'chat-cat',
-      image: '/projects/chat-cat.png',
-      description: 'My personal website built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion.',
-      github: 'https://github.com/AhmedmMhmoud2001/E-Commerce',
-      demo: 'https://react-chat-cat.vercel.app/',
-    },
-    {
-      title: 'shop',
-      image: '/projects/shop.png',
-      description: 'My personal website built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion.',
-      github: 'https://github.com/AhmedmMhmoud2001/E-Commerce',
-      demo: 'https://new-pro-swart.vercel.app/',
+      github: 'https://github.com/AhmedmMhmoud2001/Shopsy.git',
+      demo: 'https://shopsy-hazel.vercel.app',
+      category: 'frontend',
     },
     {
       title: 'udemy',
       image: '/projects/udemy.png',
-      description: 'My personal website built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion.',
       github: 'https://github.com/AhmedmMhmoud2001/udemy',
       demo: 'https://udemy-one.vercel.app/',
+      category: 'frontend',
     },
-    // ... المشاريع الأخرى
+    {
+      title: 'food-eat',
+      image: '/projects/food-eat.png',
+      github: 'https://github.com/AhmedmMhmoud2001/Food-Eat.git',
+      demo: 'https://food-eat-lake.vercel.app/',
+      category: 'frontend',
+    },{
+      title: 'fresh-fruit',
+      image: '/projects/fresh-fruit.png',
+      github: 'https://github.com/AhmedmMhmoud2001/Fresh-Fruit.git',
+      demo: 'https://fresh-fruit-phi.vercel.app/',
+      category: 'frontend',
+    },
+    {
+      title: 'dayma',
+      image: '/projects/dayma.png',
+      github: 'https://github.com/AhmedmMhmoud2001/Dayma.git',
+      demo: 'https://dayma.vercel.app/',
+      category: 'frontend',
+    }
+    ,
+    // {
+    //   title: 'watched',
+    //   image: '/projects/watchn.png',
+    //   github: 'https://github.com/AhmedmMhmoud2001/E-Commerce',
+    //   demo: 'https://watched-delta.vercel.app/',
+    //   category: 'fullstack',
+    // },
+    
+    {
+      title: 'shop',
+      image: '/projects/shop.png',
+      github: 'https://github.com/AhmedmMhmoud2001/E-Commerce',
+      demo: 'https://new-pro-swart.vercel.app/',
+      category: 'frontend',
+    },
+    {
+      title: 'kaspes',
+      image: '/projects/kaspes.png',
+      github: 'https://github.com/AhmedmMhmoud2001/Kaspes.git',
+      demo: 'https://kaspes.vercel.app/',
+      category: 'frontend',
+    },
+    {
+      title: 'chat-cat',
+      image: '/projects/chat-cat.png',
+      github: 'https://github.com/AhmedmMhmoud2001/react-chat-cat.git',
+      demo: 'https://react-chat-cat.vercel.app/',
+      category: 'frontend',
+    },
+    {
+      title: 'calculator',
+      image: '/projects/calc.png',
+      github: 'https://github.com/AhmedmMhmoud2001/react-calculator.git',
+      demo: 'https://react-calcultor-omega.vercel.app',
+      category: 'frontend',
+    },
   ];
+
+  // فلترة المشاريع
+  const filteredProjects =
+    filter === 'all' ? projects : projects.filter((p) => p.category === filter);
 
   return (
     <section
@@ -97,12 +116,38 @@ export default function Projects() {
         viewport={{ once: true }}
         className="w-full max-w-6xl text-center"
       >
-        <h2 className="text-3xl md:text-4xl font-bold text-purple-800 mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold text-purple-800 mb-8">
           My Projects
         </h2>
 
+        {/* Tabs */}
+        <div className="flex justify-center gap-4 mb-12">
+          {(['all', 'frontend', 'backend', 'fullstack'] as Category[]).map(
+            (cat) => (
+              <button
+                key={cat}
+                onClick={() => setFilter(cat)}
+                className={`px-4 py-2 rounded font-semibold transition ${
+                  filter === cat
+                    ? 'bg-purple-800 text-white'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
+              >
+                {cat === 'all'
+                  ? 'All'
+                  : cat === 'frontend'
+                  ? 'Frontend'
+                  : cat === 'backend'
+                  ? 'Backend'
+                  : 'Full Stack'}
+              </button>
+            )
+          )}
+        </div>
+
+        {/* المشاريع */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {projects.map((project, index) => (
+          {filteredProjects.map((project, index) => (
             <motion.div
               key={index}
               whileHover={{ scale: 1.02 }}
@@ -114,7 +159,7 @@ export default function Projects() {
                 width={800}
                 height={400}
                 className="w-full h-56 object-cover"
-                priority={index === 0} // فقط أول صورة تعطيها priority
+                priority={index === 0}
               />
 
               <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">

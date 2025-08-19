@@ -2,11 +2,42 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import emailjs from 'emailjs-com';
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+//  console.log(`${process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID}`);
+  const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setError('Please enter a valid email address');
+      return;
+    }
+    setError('');
+    setLoading(true);
+
+    emailjs
+      .sendForm(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID as string,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID as string,
+        e.currentTarget,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY as string
+      )
+      .then(
+        () => {
+          setSubmitted(true);
+          setLoading(false);
+          e.currentTarget.reset();
+        },
+        () => {
+          setError('Something went wrong, please try again later.');
+          setLoading(false);
+        }
+      );
+  };
 
   return (
     <section
@@ -25,91 +56,83 @@ export default function Contact() {
         </h2>
 
         <div className="flex flex-col md:flex-row gap-10 h-full">
-  {/* Form */}
-  <div className="flex-1 bg-white p-8 rounded-lg shadow-md h-full flex flex-col justify-between">
-    {!submitted ? (
-      <form
-        action="https://formsubmit.co/ahmedmahmoud2152001@gmail.com"
-        method="POST"
-        onSubmit={(e) => {
-          if (!/\S+@\S+\.\S+/.test(email)) {
-            e.preventDefault();
-            setError('Please enter a valid email address');
-            return;
-          }
-          setError('');
-          setSubmitted(true);
-        }}
-        className="space-y-6 flex flex-col flex-grow justify-between"
-      >
-        <input type="hidden" name="_captcha" value="false" />
-        <input type="hidden" name="_next" value="http://localhost:3000/#contact" />
+          {/* Form */}
+          <div className="flex-1 bg-white p-8 rounded-lg shadow-md h-full flex flex-col justify-between">
+            {!submitted ? (
+              <form
+                onSubmit={sendEmail}
+                className="space-y-6 flex flex-col flex-grow justify-between"
+              >
+                {/* Name */}
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-gray-700">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    name="user_name"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-900"
+                  />
+                </div>
 
-        {/* Name */}
-        <div>
-          <label className="block mb-2 text-sm font-medium text-gray-700">Name</label>
-          <input
-            type="text"
-            name="name"
-            required
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-900"
-          />
+                {/* Email */}
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-gray-700">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    name="user_email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-900"
+                  />
+                  {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+                </div>
+
+                {/* Message */}
+                <div className="flex-grow">
+                  <label className="block mb-2 text-sm font-medium text-gray-700">
+                    Message
+                  </label>
+                  <textarea
+                    name="message"
+                    rows={5}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-900 text-black"
+                  ></textarea>
+                </div>
+
+                {/* Submit */}
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-purple-900 text-white py-3 px-6 rounded-md hover:bg-purple-800 transition shadow"
+                >
+                  {loading ? 'Sending...' : 'Send Message'}
+                </button>
+              </form>
+            ) : (
+              <div className="text-green-600 text-xl text-center mt-6">
+                ✅ Thank you! Your message has been sent successfully.
+              </div>
+            )}
+          </div>
+
+          {/* Google Map */}
+          <div className="flex-1 aspect-[16/9] rounded-lg overflow-hidden shadow-md">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3454.202824450103!2d31.235711!3d30.044420!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583fc181f8fdcf%3A0x5224b35d5f8abf3f!2z2KfZhNin2YXYp9mF!5e0!3m2!1sen!2seg!4v1718820000000"
+              className="w-full h-full"
+              style={{ border: 0 }}
+              loading="lazy"
+              allowFullScreen
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
         </div>
-
-        {/* Email */}
-        <div>
-          <label className="block mb-2 text-sm font-medium text-gray-700">Email</label>
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-900"
-          />
-          {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
-        </div>
-
-        {/* Message */}
-        <div className="flex-grow">
-          <label className="block mb-2 text-sm font-medium text-gray-700">Message</label>
-          <textarea
-            name="message"
-            rows={5}
-            required
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-900"
-          ></textarea>
-        </div>
-
-        {/* Submit */}
-        <button
-          type="submit"
-          className="w-full bg-purple-900 text-white py-3 px-6 rounded-md hover:bg-purple-900 transition shadow"
-        >
-          Send Message
-        </button>
-      </form>
-    ) : (
-      <div className="text-green-600 text-xl text-center mt-6">
-        ✅ Thank you! Your message has been sent successfully.
-      </div>
-    )}
-  </div>
-
-  {/* Google Map */}
-  <div className="flex-1 aspect-[16/9] rounded-lg overflow-hidden shadow-md">
-  <iframe
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3454.202824450103!2d31.235711!3d30.044420!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583fc181f8fdcf%3A0x5224b35d5f8abf3f!2z2KfZhNin2YXYp9mF!5e0!3m2!1sen!2seg!4v1718820000000"
-    className="w-full h-full"
-    style={{ border: 0 }}
-    loading="lazy"
-    allowFullScreen
-    referrerPolicy="no-referrer-when-downgrade"
-  ></iframe>
-</div>
-
-</div>
-
       </motion.div>
     </section>
   );
